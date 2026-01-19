@@ -1,0 +1,63 @@
+<div class="container-geral">
+  
+  <div class="barra-adicionar">
+    <input #nome placeholder="Nome do Candidato" type="text">
+    <input #email placeholder="E-mail" type="text">
+    <button (click)="adicionar(nome, email)">+ Adicionar Card</button>
+  </div>
+
+  <div class="kanban-board">
+    
+    <div class="coluna">
+      <h2 style="border-top: 4px solid #ff5252;">A Fazer</h2>
+      <div
+        cdkDropList id="TODO" [cdkDropListData]="todo"
+        [cdkDropListConnectedTo]="['DOING', 'DONE']"
+        class="lista" (cdkDropListDropped)="drop($event)">
+        
+        <div class="card" *ngFor="let item of todo" cdkDrag>
+          <div class="card-content">
+            <b>{{ item.nome }}</b> <small>{{ item.email }}</small>
+          </div>
+          <button class="btn-delete" (click)="remover(item.id)">X</button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="coluna">
+      <h2 style="border-top: 4px solid #ffb142;">Em Andamento</h2>
+      <div
+        cdkDropList id="DOING" [cdkDropListData]="doing"
+        [cdkDropListConnectedTo]="['TODO', 'DONE']"
+        class="lista" (cdkDropListDropped)="drop($event)">
+        
+        <div class="card" *ngFor="let item of doing" cdkDrag>
+          <div class="card-content">
+            <b>{{ item.nome }}</b>
+          </div>
+          <button class="btn-delete" (click)="remover(item.id)">X</button>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="coluna">
+      <h2 style="border-top: 4px solid #2ccce4;">Feito</h2>
+      <div
+        cdkDropList id="DONE" [cdkDropListData]="done"
+        [cdkDropListConnectedTo]="['TODO', 'DOING']"
+        class="lista" (cdkDropListDropped)="drop($event)">
+        
+        <div class="card" *ngFor="let item of done" cdkDrag>
+          <div class="card-content">
+            <b>{{ item.nome }}</b>
+          </div>
+          <button class="btn-delete" (click)="remover(item.id)">X</button>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
